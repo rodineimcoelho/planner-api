@@ -9,6 +9,11 @@ Install the dependencies:
 ```
 npm install
 ```
+Build the project:
+
+```
+npm run build
+```
 
 Start the server:
 
