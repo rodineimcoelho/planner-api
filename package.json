@@ -2,9 +2,10 @@
   "name": "planner-api",
   "version": "1.0.0",
   "description": "Planner API to organize the tasks of the week.",
-  "main": "server.js",
+  "main": "dist/server.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node dist/server.js",
+    "build": "tsc"
   },
   "author": "Rodinei Martins Coelho",
   "license": "ISC",
