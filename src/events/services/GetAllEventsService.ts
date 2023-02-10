@@ -1,13 +1,13 @@
 import IEventsRepository from '../repositories/IEventsRepository';
-import IGetEventDTO from '../dtos/IGetEventDTO';
+import IEventDTO from '../dtos/IEventDTO';
 import Event from '../entities/Event';
 
 export default class GetAllEventsService {
   constructor(private eventsRepository: IEventsRepository) {}
 
-  async execute(): Promise<IGetEventDTO[]> {
+  async execute(): Promise<IEventDTO[]> {
     const events = await this.eventsRepository.getAll();
-    return events.map<IGetEventDTO>((event) => ({
+    return events.map<IEventDTO>((event) => ({
       _id: event.id,
       description: event.description,
       dateTime: event.dateTime.toISOString(),

@@ -1,4 +1,4 @@
-export default interface IGetEventDTO {
+export default interface IEventDTO {
   _id: string;
   description: string;
   dateTime: string;

@@ -1,16 +1,22 @@
 import Event from '../../entities/Event';
 import IEventsRepository from '../IEventsRepository';
-import fs from 'fs/promises';
-import IGetEventDTO from '../../dtos/IGetEventDTO';
+import fs from 'fs';
+import IEventDTO from '../../dtos/IEventDTO';
 
 export default class JsonEventsRepository implements IEventsRepository {
-  constructor(private jsonPath: string) {}
+  private readonly jsonPath: string;
+  private events!: Event[];
 
-  async getAll(): Promise<Event[]> {
-    const jsonString = await fs.readFile(this.jsonPath, 'utf-8');
-    const jsonEvents: IGetEventDTO[] = JSON.parse(jsonString);
+  constructor(jsonPath: string) {
+    this.jsonPath = jsonPath;
+    this.loadEvents();
+  }
 
-    const events = jsonEvents.map((jsonEvent) => {
+  private loadEvents() {
+    const jsonString = fs.readFileSync(this.jsonPath, 'utf-8');
+    const jsonEvents: IEventDTO[] = JSON.parse(jsonString);
+
+    this.events = jsonEvents.map((jsonEvent) => {
       const dateTime = new Date(jsonEvent.dateTime);
       const createdAt = new Date(jsonEvent.createdAt);
 
@@ -21,7 +27,9 @@ export default class JsonEventsRepository implements IEventsRepository {
         jsonEvent._id
       );
     });
+  }
 
-    return events;
+  async getAll(): Promise<Event[]> {
+    return this.events;
   }
 }
