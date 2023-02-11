@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-export default class Event {
+export default class PlannerEvent {
   public readonly id!: string;
   public description!: string;
   public dateTime!: Date;

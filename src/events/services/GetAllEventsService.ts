@@ -1,6 +1,5 @@
 import IEventsRepository from '../repositories/IEventsRepository';
-import IEventDTO from '../dtos/IEventDTO';
-import Event from '../entities/Event';
+import IEventDTO from '../dtos/IPlannerEventDTO';
 
 export default class GetAllEventsService {
   constructor(private eventsRepository: IEventsRepository) {}

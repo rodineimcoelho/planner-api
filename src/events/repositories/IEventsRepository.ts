@@ -1,5 +1,5 @@
-import Event from '../entities/Event';
+import PlannerEvent from '../entities/PlannerEvent';
 
 export default interface IEventsRepository {
-  getAll(): Promise<Event[]>
+  getAll(): Promise<PlannerEvent[]>;
 }

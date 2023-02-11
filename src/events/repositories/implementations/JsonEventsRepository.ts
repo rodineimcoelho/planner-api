@@ -1,11 +1,11 @@
-import Event from '../../entities/Event';
+import PlannerEvent from '../../entities/PlannerEvent';
 import IEventsRepository from '../IEventsRepository';
 import fs from 'fs';
-import IEventDTO from '../../dtos/IEventDTO';
+import IEventDTO from '../../dtos/IPlannerEventDTO';
 
 export default class JsonEventsRepository implements IEventsRepository {
   private readonly jsonPath: string;
-  private events!: Event[];
+  private events!: PlannerEvent[];
 
   constructor(jsonPath: string) {
     this.jsonPath = jsonPath;
@@ -17,7 +17,7 @@ export default class JsonEventsRepository implements IEventsRepository {
     const jsonEvents: IEventDTO[] = JSON.parse(jsonString);
 
     this.events = jsonEvents.map((jsonEvent) => {
-      return new Event(
+      return new PlannerEvent(
         jsonEvent.description,
         jsonEvent.dateTime,
         jsonEvent.createdAt,
@@ -26,7 +26,7 @@ export default class JsonEventsRepository implements IEventsRepository {
     });
   }
 
-  async getAll(): Promise<Event[]> {
+  async getAll(): Promise<PlannerEvent[]> {
     return this.events;
   }
 }
