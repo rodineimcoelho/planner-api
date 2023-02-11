@@ -10,8 +10,8 @@ export default class GetAllEventsService {
     return events.map<IEventDTO>((event) => ({
       _id: event.id,
       description: event.description,
-      dateTime: event.dateTime.toISOString(),
-      createdAt: event.createdAt.toISOString()
+      dateTime: event.dateTime,
+      createdAt: event.createdAt
     }));
   }
 }

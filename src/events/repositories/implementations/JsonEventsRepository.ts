@@ -17,13 +17,10 @@ export default class JsonEventsRepository implements IEventsRepository {
     const jsonEvents: IEventDTO[] = JSON.parse(jsonString);
 
     this.events = jsonEvents.map((jsonEvent) => {
-      const dateTime = new Date(jsonEvent.dateTime);
-      const createdAt = new Date(jsonEvent.createdAt);
-
       return new Event(
         jsonEvent.description,
-        dateTime,
-        createdAt,
+        jsonEvent.dateTime,
+        jsonEvent.createdAt,
         jsonEvent._id
       );
     });
