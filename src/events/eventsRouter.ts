@@ -17,4 +17,8 @@ router.get('/events', (request, response) => {
   return eventsController.getEvents(request, response);
 });
 
+router.get('/events/:id', (request, response) => {
+  return eventsController.getEventById(request, response);
+})
+
 export default router;

@@ -51,4 +51,23 @@ export default class EventsController {
 
     return this.getAllEvents(request, response);
   }
+
+  async getEventById(request: Request, response: Response): Promise<Response> {
+    try {
+      const { id } = request.params;
+      const event = await this.services.getEventByIdService.execute(id);
+
+      if (typeof event === 'undefined') {
+        return response.status(404).json({
+          message: 'Event not found.'
+        });
+      }
+
+      return response.status(200).json(event);
+    } catch (err: any) {
+      return response.status(400).json({
+        message: err.message || 'Unexpected error.'
+      });
+    }
+  }
 }

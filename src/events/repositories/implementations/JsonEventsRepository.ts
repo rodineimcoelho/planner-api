@@ -29,4 +29,8 @@ export default class JsonEventsRepository implements IEventsRepository {
   async getAll(): Promise<PlannerEvent[]> {
     return this.events;
   }
+
+  async get(id: string): Promise<PlannerEvent | undefined> {
+    return this.events.find((event) => event.id === id);
+  }
 }
