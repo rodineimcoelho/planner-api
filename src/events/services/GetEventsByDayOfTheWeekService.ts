@@ -1,5 +1,6 @@
 import IEventsRepository from '../repositories/IEventsRepository';
 import PlannerEvent from '../entities/PlannerEvent';
+import IPlannerEventDTO from '../dtos/IPlannerEventDTO';
 
 export default class GetEventsByDayOfTheWeekService {
   constructor(private eventsRepository: IEventsRepository) {}
@@ -45,6 +46,11 @@ export default class GetEventsByDayOfTheWeekService {
       return isQueriedDay && this.isFromCurrentWeek(eventDate);
     });
 
-    return filteredEvents;
+    return filteredEvents.map<IPlannerEventDTO>((event) => ({
+      _id: event.id,
+      description: event.description,
+      dateTime: event.dateTime,
+      createdAt: event.createdAt
+    }));
   }
 }
