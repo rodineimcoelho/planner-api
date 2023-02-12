@@ -1,23 +1,15 @@
 import { Router } from 'express';
 import EventsController from './controllers/EventsController';
 import JsonEventsRepository from './repositories/implementations/JsonEventsRepository';
-import GetAllEventsService from './services/GetAllEventsService';
-import GetEventsByDayOfTheWeekService from './services/GetEventsByDayOfTheWeekService';
+import EventsServices from './services';
 
 const jsonEventsRepository = new JsonEventsRepository(
   `${__dirname}/../../data/events.json`
 );
 
-const getAllEventsService = new GetAllEventsService(jsonEventsRepository);
+const eventsServices = new EventsServices(jsonEventsRepository);
 
-const getEventsByDayOfTheWeek = new GetEventsByDayOfTheWeekService(
-  jsonEventsRepository
-);
-
-const eventsController = new EventsController(
-  getAllEventsService,
-  getEventsByDayOfTheWeek
-);
+const eventsController = new EventsController(eventsServices);
 
 const router = Router();
 

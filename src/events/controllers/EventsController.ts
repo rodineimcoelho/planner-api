@@ -1,19 +1,15 @@
 import { Request, Response } from 'express';
-import GetAllEventsService from '../services/GetAllEventsService';
-import GetEventsByDayOfTheWeekService from '../services/GetEventsByDayOfTheWeekService';
+import EventsServices from '../services';
 
 export default class EventsController {
-  constructor(
-    private getAllEventsService: GetAllEventsService,
-    private getEventsByDayOfTheWeekService: GetEventsByDayOfTheWeekService
-  ) {}
+  constructor(private services: EventsServices) {}
 
   private async getAllEvents(
     _request: Request,
     response: Response
   ): Promise<Response> {
     try {
-      const events = await this.getAllEventsService.execute();
+      const events = await this.services.getAllEventsService.execute();
       return response.status(200).json(events);
     } catch (err: any) {
       return response.status(400).json({
@@ -34,7 +30,7 @@ export default class EventsController {
       if (dayOfTheWeek < 0 || dayOfTheWeek > 6)
         throw new Error('The day of the week value must be between 0 and 6');
 
-      const events = await this.getEventsByDayOfTheWeekService.execute(
+      const events = await this.services.getEventsByDayOfTheWeekService.execute(
         dayOfTheWeek
       );
 
