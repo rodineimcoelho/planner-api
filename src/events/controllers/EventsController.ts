@@ -8,16 +8,6 @@ export default class EventsController {
     private getEventsByDayOfTheWeekService: GetEventsByDayOfTheWeekService
   ) {}
 
-  async getEvents(request: Request, response: Response): Promise<Response> {
-    const { dayOfTheWeek } = request.query;
-
-    if (dayOfTheWeek) {
-      return this.getEventsByDayOfTheWeek(request, response);
-    }
-
-    return this.getAllEvents(request, response);
-  }
-
   private async getAllEvents(
     _request: Request,
     response: Response
@@ -54,5 +44,15 @@ export default class EventsController {
         message: err.message || 'Unexpected error.'
       });
     }
+  }
+
+  async getEvents(request: Request, response: Response): Promise<Response> {
+    const { dayOfTheWeek } = request.query;
+
+    if (dayOfTheWeek) {
+      return this.getEventsByDayOfTheWeek(request, response);
+    }
+
+    return this.getAllEvents(request, response);
   }
 }
