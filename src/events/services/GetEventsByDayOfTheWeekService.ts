@@ -36,7 +36,7 @@ export default class GetEventsByDayOfTheWeekService {
     return date >= firstDateOfTheWeek && date <= lastDateOfTheWeek;
   }
 
-  async execute(queryDayOfTheWeek: number) {
+  async execute(queryDayOfTheWeek: number): Promise<IPlannerEventDTO[]> {
     const events: PlannerEvent[] = await this.eventsRepository.getAll();
 
     const filteredEvents = events.filter((event) => {
