@@ -1,4 +1,4 @@
-export default interface IEventDTO {
+export default interface IPlannerEventDTO {
   _id: string;
   description: string;
   dateTime: Date;
