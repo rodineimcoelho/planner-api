@@ -9,13 +9,23 @@ export default class GetEventsByDayOfTheWeekService {
     lastDateOfTheWeek: Date;
   } {
     const today = new Date();
+    const todayYear = today.getFullYear();
+    const todayMonth = today.getMonth();
     const firstDayOfTheWeek = today.getDate() - today.getDay();
 
-    const firstDateOfTheWeek = new Date(today);
-    firstDateOfTheWeek.setDate(firstDayOfTheWeek);
+    const firstDateOfTheWeek = new Date(
+      todayYear,
+      todayMonth,
+      firstDayOfTheWeek
+    );
 
-    const lastDateOfTheWeek = new Date(today);
-    lastDateOfTheWeek.setDate(firstDayOfTheWeek + 6);
+    const lastDateOfTheWeek = new Date(
+      todayYear,
+      todayMonth,
+      firstDayOfTheWeek + 7
+    );
+
+    lastDateOfTheWeek.setTime(lastDateOfTheWeek.getTime() - 1);
 
     return { firstDateOfTheWeek, lastDateOfTheWeek };
   }
