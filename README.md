@@ -26,13 +26,19 @@ Build the project:
 npm run build
 ```
 
+Choose a port to the app in the `.env` file:
+
+```
+PORT={port}
+```
+
 Start the server:
 
 ```
 npm start
 ```
 
-The server is now running on `http://localhost:3000`.
+The server is now running on `http://localhost:port`, where `port` is the port of the `.env` file or 80 by default.
 
 ## Using the API
 
