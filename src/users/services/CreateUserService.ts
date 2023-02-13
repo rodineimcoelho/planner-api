@@ -7,7 +7,7 @@ import {
   validateBirthDate,
   validateEmail,
   validateRequiredStringProperty
-} from '../utils/UserValidators';
+} from '../../utils/Validators';
 
 export default class CreateUserService {
   constructor(private userRepository: IUsersRepository) {}

@@ -19,6 +19,10 @@ router.get('/events', (request, response) => {
 
 router.get('/events/:id', (request, response) => {
   return eventsController.getEventById(request, response);
-})
+});
+
+router.post('/events', (request, response) => {
+  return eventsController.createEvent(request, response);
+});
 
 export default router;

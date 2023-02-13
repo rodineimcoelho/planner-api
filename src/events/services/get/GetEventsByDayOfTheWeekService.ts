@@ -1,6 +1,6 @@
-import IEventsRepository from '../repositories/IEventsRepository';
-import PlannerEvent from '../entities/PlannerEvent';
-import IPlannerEventDTO from '../dtos/IPlannerEventDTO';
+import IEventsRepository from '../../repositories/IEventsRepository';
+import PlannerEvent from '../../entities/PlannerEvent';
+import IGetEventDTO from '../../dtos/IGetEventDTO';
 
 export default class GetEventsByDayOfTheWeekService {
   constructor(private eventsRepository: IEventsRepository) {}
@@ -36,7 +36,7 @@ export default class GetEventsByDayOfTheWeekService {
     return date >= firstDateOfTheWeek && date <= lastDateOfTheWeek;
   }
 
-  async execute(queryDayOfTheWeek: number): Promise<IPlannerEventDTO[]> {
+  async execute(queryDayOfTheWeek: number): Promise<IGetEventDTO[]> {
     const events: PlannerEvent[] = await this.eventsRepository.getAll();
 
     const filteredEvents = events.filter((event) => {
@@ -46,11 +46,6 @@ export default class GetEventsByDayOfTheWeekService {
       return isQueriedDay && this.isFromCurrentWeek(eventDate);
     });
 
-    return filteredEvents.map<IPlannerEventDTO>((event) => ({
-      _id: event.id,
-      description: event.description,
-      dateTime: event.dateTime,
-      createdAt: event.createdAt
-    }));
+    return filteredEvents.map<IGetEventDTO>((event) => event.dto);
   }
 }

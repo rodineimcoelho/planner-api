@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import ICreateEventDTO from '../dtos/ICreateEventDTO';
 import EventsServices from '../services';
 
 export default class EventsController {
@@ -64,6 +65,28 @@ export default class EventsController {
       }
 
       return response.status(200).json(event);
+    } catch (err: any) {
+      return response.status(400).json({
+        message: err.message || 'Unexpected error.'
+      });
+    }
+  }
+
+  async createEvent(request: Request, response: Response): Promise<Response> {
+    try {
+      const createEventDTO: ICreateEventDTO = {
+        description: request.body.description || '',
+        dateTime: request.body.dateTime || ''
+      };
+
+      const newEvent = await this.services.createEventService.execute(
+        createEventDTO
+      );
+
+      return response.status(201).json({
+        message: 'success',
+        createdEvent: newEvent.dto
+      });
     } catch (err: any) {
       return response.status(400).json({
         message: err.message || 'Unexpected error.'

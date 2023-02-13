@@ -2,7 +2,7 @@ import { type } from 'os';
 import ISignInDTO from '../dtos/ISignInDTO';
 import User from '../entities/User';
 import IUsersRepository from '../repositories/IUsersRepository';
-import { validateRequiredStringProperty } from '../utils/UserValidators';
+import { validateRequiredStringProperty } from '../../utils/Validators';
 
 export default class SignInService {
   constructor(private usersRepository: IUsersRepository) {}
@@ -18,7 +18,7 @@ export default class SignInService {
     const user = await this.usersRepository.findByEmail(data.email);
 
     if (typeof user === 'undefined') throw new Error('User not found.');
-    
+
     if (!user.checkPassword(data.password))
       throw new Error('Incorrect password.');
 

@@ -33,3 +33,13 @@ export function validateEmail(email: string) {
     throw new Error('Invalid email.');
   }
 }
+
+export function validateDate(dateString: string, dateName: string) {
+  validateRequiredStringProperty(dateString, dateName);
+
+  const parsedDate = new Date(dateString);
+
+  if (parsedDate.toISOString() !== dateString) {
+    throw new Error('Invalid date format.');
+  }
+}

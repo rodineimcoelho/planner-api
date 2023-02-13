@@ -1,12 +1,14 @@
 import IEventsRepository from '../repositories/IEventsRepository';
-import GetAllEventsService from './GetAllEventsService';
-import GetEventByIdService from './GetEventByIdService';
-import GetEventsByDayOfTheWeekService from './GetEventsByDayOfTheWeekService';
+import GetAllEventsService from './get/GetAllEventsService';
+import GetEventByIdService from './get/GetEventByIdService';
+import GetEventsByDayOfTheWeekService from './get/GetEventsByDayOfTheWeekService';
+import CreateEventService from './post/CreateEventService';
 
 export default class EventsServices {
   public readonly getAllEventsService: GetAllEventsService;
   public readonly getEventsByDayOfTheWeekService: GetEventsByDayOfTheWeekService;
   public readonly getEventByIdService: GetEventByIdService;
+  public readonly createEventService: CreateEventService;
 
   constructor(eventsRepository: IEventsRepository) {
     this.getAllEventsService = new GetAllEventsService(eventsRepository);
@@ -14,5 +16,6 @@ export default class EventsServices {
       eventsRepository
     );
     this.getEventByIdService = new GetEventByIdService(eventsRepository);
+    this.createEventService = new CreateEventService(eventsRepository);
   }
 }
