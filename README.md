@@ -79,3 +79,9 @@ You can access the API using the following endpoints:
 - `/api/v1/events?dayOfTheWeek={dayOfTheWeek}`: Delete events by their `dayOfTheWeek`
   - `dayOfTheWeek` values go from 0 (sunday) to 6 (saturday)
   - Events are deleted according to the server's local time and response dates are in UTC time.
+
+## Deployed Version
+
+The deployed version can be find at [https://planner-api-1q7d.onrender.com/](https://planner-api-1q7d.onrender.com/)
+
+The deployed version is using the free plan, so some requests can receive `502` response at the first try.
