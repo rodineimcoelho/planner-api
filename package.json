@@ -4,6 +4,7 @@
   "description": "Planner API to organize the tasks of the week.",
   "main": "dist/server.js",
   "scripts": {
+    "render-build": "npm install && npm run build",
     "start": "node dist/server.js",
     "build": "tsc"
   },
