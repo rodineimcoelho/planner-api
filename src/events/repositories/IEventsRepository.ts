@@ -6,4 +6,6 @@ export default interface IEventsRepository {
   get(id: string): Promise<PlannerEvent | undefined>;
   create(event: PlannerEvent): Promise<void>;
   delete(id: string): Promise<PlannerEvent | undefined>;
+
+  deleteByDayOfTheWeek(dayOfTheWeek: number): Promise<PlannerEvent[]>;
 }

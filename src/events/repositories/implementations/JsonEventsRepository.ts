@@ -78,4 +78,14 @@ export default class JsonEventsRepository implements IEventsRepository {
 
     return deletedEvent;
   }
+
+  async deleteByDayOfTheWeek(dayOfTheWeek: number): Promise<PlannerEvent[]> {
+    const deletedEvents = await this.getByDayOfTheWeek(dayOfTheWeek);
+    this.events = this.events.filter((event) => !deletedEvents.includes(event));
+
+    const eventsJson = JSON.stringify(this.events, null, 2);
+    await fsPromises.writeFile(this.jsonPath, eventsJson);
+
+    return deletedEvents;
+  }
 }

@@ -29,4 +29,8 @@ router.delete('/events/:id', (request, response) => {
   return eventsController.deleteEventById(request, response);
 });
 
+router.delete('/events', (request, response) => {
+  return eventsController.deleteEventsByDayOfTheWeek(request, response);
+});
+
 export default router;

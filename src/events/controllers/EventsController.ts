@@ -116,4 +116,33 @@ export default class EventsController {
       });
     }
   }
+
+  async deleteEventsByDayOfTheWeek(
+    request: Request,
+    response: Response
+  ): Promise<Response> {
+    if (!request.query.dayOfTheWeek) {
+      return response.status(404).send({
+        message: `Use ${request.originalUrl}?dayOfTheWeek={dayOfTheWeek} or ${request.originalUrl}:id to delete events.`
+      });
+    }
+
+    try {
+      const dayOfTheWeek = +request.query.dayOfTheWeek;
+
+      const deletedEvents =
+        await this.services.deleteEventsByDayOfTheWeekService.execute(
+          dayOfTheWeek
+        );
+
+      return response.status(200).json({
+        message: 'success',
+        deletedEvents
+      });
+    } catch (err: any) {
+      return response.status(400).json({
+        message: err.message || 'Unexpected error.'
+      });
+    }
+  }
 }

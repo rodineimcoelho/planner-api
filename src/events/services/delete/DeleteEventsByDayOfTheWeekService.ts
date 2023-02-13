@@ -2,7 +2,7 @@ import IEventsRepository from '../../repositories/IEventsRepository';
 import PlannerEvent from '../../entities/PlannerEvent';
 import IGetEventDTO from '../../dtos/IGetEventDTO';
 
-export default class GetEventsByDayOfTheWeekService {
+export default class DeleteEventsByDayOfTheWeekService {
   constructor(private eventsRepository: IEventsRepository) {}
 
   async execute(queryDayOfTheWeek: number): Promise<IGetEventDTO[]> {
@@ -13,7 +13,7 @@ export default class GetEventsByDayOfTheWeekService {
       throw new Error('The day of the week value must be between 0 and 6.');
 
     const events: PlannerEvent[] =
-      await this.eventsRepository.getByDayOfTheWeek(queryDayOfTheWeek);
+      await this.eventsRepository.deleteByDayOfTheWeek(queryDayOfTheWeek);
 
     return events.map<IGetEventDTO>((event) => event.dto);
   }
