@@ -1,4 +1,5 @@
 import IEventsRepository from '../repositories/IEventsRepository';
+import DeleteEventByIdService from './delete/DeleteEventByIdService';
 import GetAllEventsService from './get/GetAllEventsService';
 import GetEventByIdService from './get/GetEventByIdService';
 import GetEventsByDayOfTheWeekService from './get/GetEventsByDayOfTheWeekService';
@@ -9,13 +10,17 @@ export default class EventsServices {
   public readonly getEventsByDayOfTheWeekService: GetEventsByDayOfTheWeekService;
   public readonly getEventByIdService: GetEventByIdService;
   public readonly createEventService: CreateEventService;
+  public readonly deleteEventByIdService: DeleteEventByIdService;
 
   constructor(eventsRepository: IEventsRepository) {
     this.getAllEventsService = new GetAllEventsService(eventsRepository);
+
     this.getEventsByDayOfTheWeekService = new GetEventsByDayOfTheWeekService(
       eventsRepository
     );
+
     this.getEventByIdService = new GetEventByIdService(eventsRepository);
     this.createEventService = new CreateEventService(eventsRepository);
+    this.deleteEventByIdService = new DeleteEventByIdService(eventsRepository);
   }
 }

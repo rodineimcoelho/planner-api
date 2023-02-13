@@ -53,4 +53,19 @@ export default class JsonEventsRepository implements IEventsRepository {
     const eventsJson = JSON.stringify(this.events, null, 2);
     return fsPromises.writeFile(this.jsonPath, eventsJson);
   }
+
+  async delete(id: string): Promise<PlannerEvent | undefined> {
+    const eventIndex = this.events.findIndex((event) => event.id === id);
+
+    if (eventIndex === -1) return undefined;
+
+    const deletedEvent = this.events.splice(eventIndex, 1)[0];
+
+    console.log(this.events[eventIndex]);
+
+    const eventsJson = JSON.stringify(this.events, null, 2);
+    await fsPromises.writeFile(this.jsonPath, eventsJson);
+
+    return deletedEvent;
+  }
 }

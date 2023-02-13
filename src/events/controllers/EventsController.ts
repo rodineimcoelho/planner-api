@@ -93,4 +93,32 @@ export default class EventsController {
       });
     }
   }
+
+  async deleteEventById(
+    request: Request,
+    response: Response
+  ): Promise<Response> {
+    try {
+      const { id } = request.params;
+
+      const deletedEvent = await this.services.deleteEventByIdService.execute(
+        id
+      );
+
+      if (typeof deletedEvent === 'undefined') {
+        return response.status(404).json({
+          message: 'Event to delete not found.'
+        });
+      }
+
+      return response.status(200).json({
+        message: 'success',
+        deletedEvent
+      });
+    } catch (err: any) {
+      return response.status(400).json({
+        message: err.message || 'Unexpected error.'
+      });
+    }
+  }
 }

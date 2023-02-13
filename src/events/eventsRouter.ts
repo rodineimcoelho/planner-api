@@ -25,4 +25,8 @@ router.post('/events', (request, response) => {
   return eventsController.createEvent(request, response);
 });
 
+router.delete('/events/:id', (request, response) => {
+  return eventsController.deleteEventById(request, response);
+});
+
 export default router;
