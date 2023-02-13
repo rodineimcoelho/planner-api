@@ -26,11 +26,6 @@ export default class EventsController {
     try {
       const dayOfTheWeek = +request.query.dayOfTheWeek!;
 
-      if (isNaN(dayOfTheWeek))
-        throw new Error('Day of the week is not a number');
-      if (dayOfTheWeek < 0 || dayOfTheWeek > 6)
-        throw new Error('The day of the week value must be between 0 and 6');
-
       const events = await this.services.getEventsByDayOfTheWeekService.execute(
         dayOfTheWeek
       );

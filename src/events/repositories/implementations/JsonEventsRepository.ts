@@ -3,6 +3,7 @@ import IEventsRepository from '../IEventsRepository';
 import fs from 'fs';
 import fsPromises from 'fs/promises';
 import validator from 'validator';
+import { isFromCurrentWeek } from '../../../utils/Week';
 
 interface IEventJsonDTO {
   id: string;
@@ -42,6 +43,15 @@ export default class JsonEventsRepository implements IEventsRepository {
 
   async getAll(): Promise<PlannerEvent[]> {
     return this.events;
+  }
+
+  async getByDayOfTheWeek(dayOfTheWeek: number): Promise<PlannerEvent[]> {
+    return this.events.filter((event) => {
+      const eventDate = new Date(event.dateTime);
+      const eventDayOfTheWeek = eventDate.getDay();
+      const isQueriedDay = dayOfTheWeek === eventDayOfTheWeek;
+      return isQueriedDay && isFromCurrentWeek(eventDate);
+    });
   }
 
   async get(id: string): Promise<PlannerEvent | undefined> {
