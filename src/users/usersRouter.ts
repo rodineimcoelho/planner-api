@@ -11,8 +11,13 @@ const usersServices = new UsersServices(jsonUsersRepository);
 const usersController = new UsersController(usersServices);
 
 const router = Router();
+
 router.post('/users/signUp', (request, response) => {
   return usersController.createUser(request, response);
+});
+
+router.post('/users/signIn', (request, response) => {
+  return usersController.signIn(request, response);
 });
 
 export default router;

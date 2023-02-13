@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import ICreateUserDTO from '../dtos/ICreateUserDTO';
+import ISignInDTO from '../dtos/ISignInDTO';
 import UsersServices from '../services';
 
 export default class UsersController {
@@ -20,6 +21,26 @@ export default class UsersController {
       await this.services.createUserService.execute(createUserDTO);
       return response.status(201).json({
         message: 'success'
+      });
+    } catch (err: any) {
+      return response.status(400).json({
+        message: err.message || 'Unexpected error.'
+      });
+    }
+  }
+
+  async signIn(request: Request, response: Response): Promise<Response> {
+    try {
+      const signInDTO: ISignInDTO = {
+        email: request.body.email || '',
+        password: request.body.password || ''
+      };
+
+      const user = await this.services.signInService.execute(signInDTO);
+
+      return response.status(200).json({
+        message: 'success',
+        user: user
       });
     } catch (err: any) {
       return response.status(400).json({

@@ -33,4 +33,8 @@ export default class User {
   get email() {
     return this._email;
   }
+
+  public checkPassword(password: string) {
+    return this.password === password;
+  }
 }
