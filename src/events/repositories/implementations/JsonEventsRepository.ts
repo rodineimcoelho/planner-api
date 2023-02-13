@@ -2,6 +2,7 @@ import PlannerEvent from '../../entities/PlannerEvent';
 import IEventsRepository from '../IEventsRepository';
 import fs from 'fs';
 import IEventDTO from '../../dtos/IPlannerEventDTO';
+import validator from 'validator';
 
 export default class JsonEventsRepository implements IEventsRepository {
   private readonly jsonPath: string;
@@ -14,16 +15,21 @@ export default class JsonEventsRepository implements IEventsRepository {
 
   private loadEvents() {
     const jsonString = fs.readFileSync(this.jsonPath, 'utf-8');
-    const jsonEvents: IEventDTO[] = JSON.parse(jsonString);
 
-    this.events = jsonEvents.map((jsonEvent) => {
-      return new PlannerEvent(
-        jsonEvent.description,
-        jsonEvent.dateTime,
-        jsonEvent.createdAt,
-        jsonEvent._id
-      );
-    });
+    if (!validator.isEmpty(jsonString, { ignore_whitespace: true })) {
+      const jsonEvents: IEventDTO[] = JSON.parse(jsonString);
+
+      this.events = jsonEvents.map((jsonEvent) => {
+        return new PlannerEvent(
+          jsonEvent.description,
+          jsonEvent.dateTime,
+          jsonEvent.createdAt,
+          jsonEvent._id
+        );
+      });
+    } else {
+      this.events = [];
+    }
   }
 
   async getAll(): Promise<PlannerEvent[]> {
