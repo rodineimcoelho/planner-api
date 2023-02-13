@@ -4,6 +4,12 @@ Planner API to organize the tasks of the week.
 
 ## Getting started
 
+Download this repository or clone it:
+
+```
+git clone https://github.com/rodineimcoelho/planner-api.git
+```
+
 Install the dependencies:
 
 ```
