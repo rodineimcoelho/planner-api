@@ -55,7 +55,7 @@ You can access the API using the following endpoints:
 - `/api/v1/events`: Create a new event
   - Body (all items required):
     - `description: string` : The event description
-    - `dateTime: YYYY-MM-DDTHH:mm:ss.sssZ` : The date and time of the event in the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format
+    - `dateTime: YYYY-MM-DDTHH:mm:ss.sssZ` : The date and time of the event in the full [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format
 
 ### `DELETE`
 
