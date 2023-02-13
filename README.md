@@ -2,9 +2,13 @@
 
 Planner API to organize the tasks of the week.
 
+## Prerequisites
+
+- [Node.js](https://nodejs.org/)
+
 ## Getting started
 
-Download this repository or clone it:
+Download this repository or clone it with [git](https://git-scm.com/):
 
 ```
 git clone https://github.com/rodineimcoelho/planner-api.git
