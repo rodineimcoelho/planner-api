@@ -2,8 +2,14 @@ import PlannerEvent from '../../entities/PlannerEvent';
 import IEventsRepository from '../IEventsRepository';
 import fs from 'fs';
 import fsPromises from 'fs/promises';
-import IGetEventDTO from '../../dtos/IGetEventDTO';
 import validator from 'validator';
+
+interface IEventJsonDTO {
+  id: string;
+  description: string;
+  dateTime: string;
+  createdAt: string;
+}
 
 export default class JsonEventsRepository implements IEventsRepository {
   private readonly jsonPath: string;
@@ -18,16 +24,17 @@ export default class JsonEventsRepository implements IEventsRepository {
     const jsonString = fs.readFileSync(this.jsonPath, 'utf-8');
 
     if (!validator.isEmpty(jsonString, { ignore_whitespace: true })) {
-      const jsonEvents: IGetEventDTO[] = JSON.parse(jsonString);
+      const jsonEvents: IEventJsonDTO[] = JSON.parse(jsonString);
 
-      this.events = jsonEvents.map((jsonEvent) => {
-        return new PlannerEvent(
-          jsonEvent.description,
-          jsonEvent.dateTime,
-          jsonEvent.createdAt,
-          jsonEvent._id
-        );
-      });
+      this.events = jsonEvents.map(
+        (jsonEvent) =>
+          new PlannerEvent(
+            jsonEvent.description,
+            new Date(jsonEvent.dateTime),
+            new Date(jsonEvent.createdAt),
+            jsonEvent.id
+          )
+      );
     } else {
       this.events = [];
     }
@@ -43,7 +50,7 @@ export default class JsonEventsRepository implements IEventsRepository {
 
   async create(event: PlannerEvent): Promise<void> {
     this.events.push(event);
-    const eventsJson = JSON.stringify(this.events);
+    const eventsJson = JSON.stringify(this.events, null, 2);
     return fsPromises.writeFile(this.jsonPath, eventsJson);
   }
 }

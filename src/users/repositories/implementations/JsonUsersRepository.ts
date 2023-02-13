@@ -8,7 +8,7 @@ import IUsersRepository from '../IUsersRepository';
 interface IJsonUserDTO {
   id: string;
   name: Name;
-  birthDate: Date;
+  birthDate: string;
   address: Address;
   _email: string;
   password: string;
@@ -33,7 +33,7 @@ export default class JsonUsersRepository implements IUsersRepository {
         (jsonUser) =>
           new User(
             jsonUser.name,
-            jsonUser.birthDate,
+            new Date(jsonUser.birthDate),
             jsonUser.address,
             jsonUser._email,
             jsonUser.password,
@@ -47,7 +47,7 @@ export default class JsonUsersRepository implements IUsersRepository {
 
   async create(user: User): Promise<void> {
     this.users.push(user);
-    const usersJson = JSON.stringify(this.users);
+    const usersJson = JSON.stringify(this.users, null, 2);
     return fsPromises.writeFile(this.jsonPath, usersJson);
   }
 
