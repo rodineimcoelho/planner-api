@@ -1,6 +1,7 @@
 # Planner API
 
 Planner API to organize the tasks of the week.
+Mudanças no README.
 
 ## Prerequisites
 
